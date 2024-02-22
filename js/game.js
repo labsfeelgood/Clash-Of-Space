@@ -522,6 +522,7 @@ $.renderInterface = function () {
 		snap: 1,
 		render: 1
 	});
+	
 	$.ctxmg.fillStyle = 'hsla(0, 0%, 100%, 0.5)';
 	$.ctxmg.fill();
 
@@ -574,7 +575,7 @@ $.renderInterface = function () {
 		render: 1
 	});
 	$.ctxmg.fillStyle = 'hsla(0, 0%, 100%, 1)';
-	$.ctxmg.fill();
+	$.ctxmg.fill();	
 };
 
 $.renderMinimap = function () {
@@ -976,18 +977,18 @@ $.setState = function (state) {
 		});
 		$.buttons.push(statsButton);
 
-		var creditsButton = new $.Button({
-			x: $.cw / 2 + 1,
-			y: statsButton.ey + 26,
-			lockedWidth: 299,
-			lockedHeight: 49,
-			scale: 3,
-			title: 'DEVELOPER',
-			action: function () {
-				$.setState('credits');
-			}
-		});
-		$.buttons.push(creditsButton);
+		// var creditsButton = new $.Button({
+		// 	x: $.cw / 2 + 1,
+		// 	y: statsButton.ey + 26,
+		// 	lockedWidth: 299,
+		// 	lockedHeight: 49,
+		// 	scale: 3,
+		// 	title: 'DEVELOPER',
+		// 	action: function () {
+		// 		$.setState('credits');
+		// 	}
+		// });
+		// $.buttons.push(creditsButton);
 	}
 
 	if (state == 'stats') {
@@ -1149,7 +1150,7 @@ $.setupStates = function () {
 			ctx: $.ctxmg,
 			x: $.cw / 2,
 			y: $.ch / 2 - 100,
-			text: 'CLASH OF SPACE',
+			text: 'GTM \n\nCLASH OF SPACE',
 			hspacing: 2,
 			vspacing: 1,
 			halign: 'center',
@@ -1466,6 +1467,9 @@ $.setupStates = function () {
 		gradient.addColorStop(1, '#b00');
 		$.ctxmg.fillStyle = gradient;
 		$.ctxmg.fill();
+		// console.log("Score: " + $.score);
+		// window.parent.postMessage({ score: score }, '*'); // Send the score to the parent window
+
 
 		$.ctxmg.beginPath();
 		var gameoverStatsKeys = $.text({
@@ -1507,6 +1511,20 @@ $.setupStates = function () {
 		});
 		$.ctxmg.fillStyle = '#fff';
 		$.ctxmg.fill();
+
+		var currentScore = $.score;
+		// Check if the score has changed before logging and sending it
+		if (currentScore !== $.scoreLogged) {
+			// Log the score to the console
+			console.log("Current Score: " + currentScore);
+			
+			// Send the score to the parent window
+			window.parent.postMessage({ score: currentScore }, '*');
+			
+			// Update the variable to track the last logged score
+			$.scoreLogged = currentScore;
+		}
+
 	};
 }
 

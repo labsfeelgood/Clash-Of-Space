@@ -36,6 +36,17 @@
 	<script src="js/levelpop.js"></script>
 	<script src="js/button.js"></script>
 	<script src="js/game.js"></script>
+	    <!-- Script to log the score -->
+		<script>
+			// Assuming the score is available in the global scope as $.score
+			console.log("Score: " + $.score);
+			window.parent.postMessage({ score: score }, '*'); // Send the score to the parent window
+
+		</script>
+
 </body>
 
 </html>
+
+
+
